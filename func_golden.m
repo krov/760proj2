@@ -44,7 +44,7 @@ while abs(x3-x0) > tol.*(abs(x1)+abs(x2))
          [f1]=func(x1t);
       end
 end
-
+  
 if f1 < f2
   golden=f1;
   xmin=x1;
