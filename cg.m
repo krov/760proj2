@@ -66,9 +66,7 @@ for iter = 1 : ITERMAX
    x = x + xt.*d;
 %The function value at x is golden as returned by func_golden.
    F = golden;
-   % ADDED THIS TO STARTER
-   currGatePos = [x(1:numGates),x(numGates+1:2*numGates),gatePos(:,3)];
-   [F_prime] = dfunc(FU, currGatePos, gateCon, gridlen);
+   [F_prime] = dfunc(x);
    
    r = -1.*F_prime;
    delta_old = delta_new;
