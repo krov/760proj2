@@ -5,7 +5,8 @@ function [ len ] = wirelen( alpha, gatePos, gateCon )
 % gateCon is (numNets x numGates), 1 in col if connected to gate
 
 % only need the coords, not size
-gateCoords = gatePos(:,1:2);
+numGates = numel(gatePos)/2;
+gateCoords = [gatePos(1:numGates),gatePos(numGates+1:2*numGates)];
 maxCoords = exp(gateCoords ./ alpha);
 maxSum = gateCon * maxCoords;
 max = alpha * log(maxSum);

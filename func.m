@@ -1,4 +1,4 @@
-function [f_out] = func(FU, gatePos, gateCon, gridlen)
+function [f_out] = func(FU, gatePos, gateCon, gridlen, gateSize)
 % gatePos is (numGates x 3), (x coord, y coord, size)
 % gateCon is (numNets x numGates), 1 in col if connected to gate
 
@@ -12,8 +12,10 @@ alpha = gridlen*r;  % something?
 W_BP = 1;   % initial only
 W_DP = 1;   % always
 % start wirelen same weight as density
-W_WL = denpen(gatePos, gridlen, r, FU) / wirelen(alpha, gatePos, gateCon);
+W_WL = denpen(gatePos, gridlen, r, FU, gateSize) / wirelen(alpha, gatePos, gateCon);
 
-f_out = W_WL*wirelen(alpha, gatePos, gateCon) + ...
-        W_DP*denpen(gatePos, gridlen, r, FU) + ...
-        W_BP*boundpen(alpha, gatePos);
+WL_pen = wirelen(alpha, gatePos, gateCon);
+DP_pen = denpen(gatePos, gridlen, r, FU, gateSize);
+BP_pen = boundpen(alpha, gatePos);
+    
+f_out = W_WL*WL_pen + W_DP*DP_pen + W_BP*BP_pen;

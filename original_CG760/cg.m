@@ -21,7 +21,6 @@
 
 clear all;
 close all;
-[FU, numGates, numNets, gatePos, gateCon, pins] = parse('toy1');
 
 %put initial guess here (x is an n-dimensional vector).
 %x=[-2 ; -3];

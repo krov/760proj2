@@ -1,4 +1,4 @@
-function [ dp ] = denpen( gatePos, gridlen, r, FU )
+function [ dp ] = denpen( gatePos, gridlen, r, FU, gateSize)
 % calculates density penalty of a given placement
 % gatePos is (numGates x 3), (x coord, y coord, size)
 
@@ -6,10 +6,12 @@ grid = zeros(ceil(100/gridlen)+1);
 A = (100*gridlen)^2;
 cg = A / (101^2);
 
-for i=1:size(gatePos,1)
+gateNum = size(gatePos,1)/2;
+
+for i=1:gateNum
     xc = gatePos(i,1);
-    yc = gatePos(i,2);
-    areaC = gatePos(i,3) * FU;
+    yc = gatePos(i+gateNum,1);
+    areaC = gateSize(i) * FU;
     xMin = max(ceil((xc - (r * gridlen)) / gridlen), 0) + 1;    % +1 because of index from 1
     xMax = min(floor((xc + (r * gridlen)) / gridlen), 100/gridlen) + 1;   % +1 because of index from 1
     yMin = max(ceil((yc - (r * gridlen)) / gridlen), 0) + 1;    % +1 because of index from 1

@@ -1,4 +1,4 @@
-function [f_prime_out] = dfunc(FU, gatePos, gateCon, gridlen)
+function [f_prime_out] = dfunc(FU, gatePos, gateCon, gridlen, gateSize)
 % returns a (numGates x 2) vector, where 1st col is dx, 2nd col is dy
 % gatePos is (numGates x 3), (x coord, y coord, size)
 % gateCon is (numNets x numGates), 1 in col if connected to gate
@@ -24,21 +24,21 @@ function [f_prime_out] = dfunc(FU, gatePos, gateCon, gridlen)
 % end
 
 % NAIVE METHOD
-numGates = size(gatePos,1);
+numGates = size(gatePos,1)/2;
 f_prime_out = zeros(2*numGates,1);
 h = gridlen / 10;  % TODO: figure out what a good number should be
 for i=1:numGates
     % get original cost
-    origC = func(FU, gatePos, gateCon, gridlen);
+    origC = func(FU, gatePos, gateCon, gridlen, gateSize);
     % move ith cell by a little bit in x axis
     gatePosTemp = gatePos;
     gatePosTemp(i,1) = gatePosTemp(i,1) + h;
-    dxC = func(FU, gatePosTemp, gateCon, gridlen);
+    dxC = func(FU, gatePosTemp, gateCon, gridlen, gateSize);
     f_prime_out(i,1) = (dxC - origC) / h;
     % do the same for y axis
     gatePosTemp = gatePos;
-    gatePosTemp(i,2) = gatePosTemp(i,2) + h;
-    dyC = func(FU, gatePosTemp, gateCon, gridlen);
+    gatePosTemp(i+numGates,1) = gatePosTemp(i+numGates,1) + h;
+    dyC = func(FU, gatePosTemp, gateCon, gridlen, gateSize);
     f_prime_out(numGates+i,1) = (dyC - origC) / h;
 end
 

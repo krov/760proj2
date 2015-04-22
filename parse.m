@@ -1,4 +1,4 @@
-function [ FU, numGates, numNets, gatePos, gateCon, pins ] = parse( filename )
+function [ FU, numGates, numNets, gatePos, gateSize, gateCon, pins ] = parse( filename )
 % read input file
 % FU is float: fundamental unit
 % gatePos is (numGates x 3), (x coord, y coord, size)
@@ -18,15 +18,14 @@ tline = fgets(fid);
 str_list = strsplit(tline);
 numGates = str2double(str_list{1});
 numNets = str2double(str_list{2});
-gatePos = zeros(numGates, 3);
-gatePos(:,1) = randi([1 width],1,numGates);
-gatePos(:,2) = randi([1 height],1,numGates);
+gatePos = randi([1 100],1,numGates*2)';
 gateCon = zeros(numNets, numGates);
+gateSize = zeros(numGates,1);
 for i=1:numGates
     tline = fgets(fid);
     str_list = strsplit(tline);
     numCon = str2double(str_list{2});
-    gatePos(i,3) = numCon;
+    gateSize(i,1) = numCon;
     for j=1:numCon
         gateCon(str2double(str_list{2+j}), i) = 1;
     end

@@ -25,11 +25,9 @@
 
 % set global params
 gridlen = 10;   % or something
-[FU, numGates, numNets, gatePos, gateCon, pins] = parse('toy1');
-x = [gatePos(:,1); gatePos(:,2)];
-
-[F] = func(FU, gatePos, gateCon, gridlen);
-[F_prime] = dfunc(FU, gatePos, gateCon, gridlen);
+[FU, numGates, numNets, x, gateSize, gateCon, pins] = parse('toy1');
+[F] = func(FU, x, gateCon, gridlen, gateSize);
+[F_prime] = dfunc(FU, x, gateCon, gridlen, gateSize);
 
 % [F] = func(x);
 % [F_prime] = dfunc(x);
