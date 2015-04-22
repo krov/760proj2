@@ -9,12 +9,13 @@ numGates = numel(gatePos)/2;
 gateCoords = [gatePos(1:numGates),gatePos(numGates+1:2*numGates)];
 maxCoords = exp(gateCoords ./ alpha);
 maxSum = gateCon * maxCoords;
-max = alpha * log(maxSum);
+max1 = alpha * log(maxSum);
 minCoords = exp(-gateCoords ./ alpha);
 minSum = gateCon * minCoords;
-min = alpha * log(minSum);
+min1 = alpha * log(minSum);
 % smooth approx = maxX - minX + maxY - minY
-len = max(1) - min(1) + max(2) - min(2);
+%len = max1(1) - min1(1) + max1(2) - min1(2);
+len = sum(sum(max1)) - sum(sum(min1));
 
 % CONSTRAINTS? fixed pads??
 

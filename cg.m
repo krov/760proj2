@@ -87,5 +87,6 @@ for iter = 1 : ITERMAX
       break;
    end
    fp = F;
+   iter
 
 end

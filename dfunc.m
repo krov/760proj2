@@ -27,7 +27,7 @@ global numGates numNets gateSize gateCon pins gridlen FU x;
 % NAIVE METHOD
 numGates = size(gatePos,1)/2;
 f_prime_out = zeros(2*numGates,1);
-h = gridlen / 10;  % TODO: figure out what a good number should be
+h = gridlen / 100;  % TODO: figure out what a good number should be
 for i=1:numGates
     % get original cost
     origC = func(gatePos);
