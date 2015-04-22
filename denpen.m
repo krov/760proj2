@@ -10,10 +10,10 @@ for i=1:size(gatePos,1)
     xc = gatePos(i,1);
     yc = gatePos(i,2);
     areaC = gatePos(i,3) * FU;
-    xMin = ceil((xc - (r * gridlen)) / gridlen) + 1;    % +1 because of index from 1
-    xMax = floor((xc + (r * gridlen)) / gridlen) + 1;   % +1 because of index from 1
-    yMin = ceil((yc - (r * gridlen)) / gridlen) + 1;    % +1 because of index from 1
-    yMax = floor((yc + (r * gridlen)) / gridlen) + 1;   % +1 because of index from 1
+    xMin = max(ceil((xc - (r * gridlen)) / gridlen), 0) + 1;    % +1 because of index from 1
+    xMax = min(floor((xc + (r * gridlen)) / gridlen), 100/gridlen) + 1;   % +1 because of index from 1
+    yMin = max(ceil((yc - (r * gridlen)) / gridlen), 0) + 1;    % +1 because of index from 1
+    yMax = min(floor((yc + (r * gridlen)) / gridlen), 100/gridlen) + 1;   % +1 because of index from 1
     % go through each grid point
     for x=xMin:xMax
         for y=yMin:yMax
