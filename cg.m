@@ -30,7 +30,7 @@ x = [gatePos(:,1); gatePos(:,2)];
 
 [F] = func(FU, gatePos, gateCon, gridlen);
 [F_prime] = dfunc(FU, gatePos, gateCon, gridlen);
-pause;
+
 % [F] = func(x);
 % [F_prime] = dfunc(x);
 

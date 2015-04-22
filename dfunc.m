@@ -27,7 +27,7 @@ function [f_prime_out] = dfunc(FU, gatePos, gateCon, gridlen)
 numGates = size(gatePos,1);
 f_prime_out = zeros(2*numGates,1);
 h = gridlen / 10;  % TODO: figure out what a good number should be
-for i=1:size(numGates,1)
+for i=1:numGates
     % get original cost
     origC = func(FU, gatePos, gateCon, gridlen);
     % move ith cell by a little bit in x axis

@@ -12,7 +12,7 @@ alpha = gridlen*r;  % something?
 W_BP = 1;   % initial only
 W_DP = 1;   % always
 % start wirelen same weight as density
-W_WL = 1;%denpen(gatePos, gridlen, r, FU) / wirelen(alpha, gatePos, gateCon);
+W_WL = denpen(gatePos, gridlen, r, FU) / wirelen(alpha, gatePos, gateCon);
 
 f_out = W_WL*wirelen(alpha, gatePos, gateCon) + ...
         W_DP*denpen(gatePos, gridlen, r, FU) + ...
