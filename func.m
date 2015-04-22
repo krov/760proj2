@@ -1,4 +1,4 @@
-function [f_out] = func(FU, gatePos, gateCon)
+function [f_out] = func(FU, gatePos, gateCon, gridlen)
 % gatePos is (numGates x 3), (x coord, y coord, size)
 % gateCon is (numNets x numGates), 1 in col if connected to gate
 
@@ -6,7 +6,6 @@ function [f_out] = func(FU, gatePos, gateCon)
 
 % set parameters
 r = 2;
-gridlen = 10;   % something??
 alpha = gridlen*r;  % something?
 
 % set weights

@@ -23,14 +23,11 @@
 %x=[-2 ; -3];
 % x = ones(100, 1);
 
-% set global params
-gridlen = 10;   % or something
 [FU, numGates, numNets, gatePos, gateCon, pins] = parse('toy1');
-x = [gatePos(:,1); gatePos(:,2)];
 
-[F] = func(FU, gatePos, gateCon, gridlen);
-[F_prime] = dfunc(FU, gatePos, gateCon, gridlen);
-pause;
+
+[F] = func(FU, gatePos, gateCon);
+[F_prime] = dfunc(x);
 % [F] = func(x);
 % [F_prime] = dfunc(x);
 
@@ -60,10 +57,8 @@ for iter = 1 : ITERMAX
    x = x + xt.*d;
 %The function value at x is golden as returned by func_golden.
    F = golden;
-   % ADDED THIS TO STARTER
-   currGatePos = [x(1:numGates),x(numGates+1:2*numGates),gatePos(:,3)];
-   [F_prime] = dfunc(FU, currGatePos, gateCon, gridlen);
-   
+   [F_prime] = dfunc(x);
+
    r = -1.*F_prime;
    delta_old = delta_new;
 %This is Fletcher-Reeves
