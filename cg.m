@@ -24,10 +24,18 @@
 % x = ones(100, 1);
 
 % set global params
-gridlen = 10;   % or something
-[FU, numGates, numNets, x, gateSize, gateCon, pins] = parse('toy1');
-[F] = func(FU, x, gateCon, gridlen, gateSize);
-[F_prime] = dfunc(FU, x, gateCon, gridlen, gateSize);
+global numGates numNets gateSize gateCon pins gridlen FU x;
+[FU1, numGates1, numNets1, x1, gateSize1, gateCon1, pins1] = parse('toy1');
+numGates = numGates1;
+numNets = numNets1;
+gateSize = gateSize1;
+gateCon = gateCon1;
+pins = pins1;
+gridlen = 10;
+FU = FU1;
+x = x1;
+[F] = func(x);
+[F_prime] = dfunc(x);
 
 % [F] = func(x);
 % [F_prime] = dfunc(x);

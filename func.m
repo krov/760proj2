@@ -1,8 +1,9 @@
-function [f_out] = func(FU, gatePos, gateCon, gridlen, gateSize)
+function [f_out] = func(gatePos)
 % gatePos is (numGates x 3), (x coord, y coord, size)
 % gateCon is (numNets x numGates), 1 in col if connected to gate
 
 %give your own function here. it is a scalar output
+global numGates numNets gateSize gateCon pins gridlen FU x;
 
 % set parameters
 r = 2;
