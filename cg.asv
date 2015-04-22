@@ -23,7 +23,7 @@
 %x=[-2 ; -3];
 % x = ones(100, 1);
 
-filename = 'toy2';
+filename = 'toy1';
 % set global params
 global numGates numNets gateSize gateCon pins gridlen FU;
 [FU1, numGates1, numNets1, x_original, gateSize1, gateCon1, pins1] = parse(filename);
@@ -103,6 +103,6 @@ end
 fileID = fopen(strcat(filename,'_out'),'w');
 noGates = numel(x)/2;
 for i=1:noGates
-    fprintf(fileID,'%i %.3f %.3f\n',i,x(i,1),x(i+noGates,1));
+    fprintf(fileID,'%i %.3f %.3f\n',i,x(i,1),x(i+noGates,1)));
 end
 fclose(fileID);
