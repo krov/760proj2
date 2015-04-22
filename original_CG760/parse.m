@@ -10,8 +10,6 @@ fid = fopen(filename);
 tline = fgets(fid);
 % get initial parameters
 str_list = strsplit(tline);
-width=str2double(str_list{1});
-height=str2double(str_list{2});
 FU = str2double(str_list{3});
 % get # of gates and nets
 tline = fgets(fid);
@@ -19,8 +17,6 @@ str_list = strsplit(tline);
 numGates = str2double(str_list{1});
 numNets = str2double(str_list{2});
 gatePos = zeros(numGates, 3);
-gatePos(:,1) = randi([1 width],1,numGates);
-gatePos(:,2) = randi([1 height],1,numGates);
 gateCon = zeros(numNets, numGates);
 for i=1:numGates
     tline = fgets(fid);

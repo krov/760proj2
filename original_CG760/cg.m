@@ -19,6 +19,10 @@
 %   seem to work well. If you notice any bug or have any comment, please email me
 %   king at ictp at it
 
+clear all;
+close all;
+[FU, numGates, numNets, gatePos, gateCon, pins] = parse('toy1');
+
 %put initial guess here (x is an n-dimensional vector).
 %x=[-2 ; -3];
 x = ones(100, 1);
