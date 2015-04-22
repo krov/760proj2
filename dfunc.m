@@ -1,7 +1,8 @@
 function [f_prime_out] = dfunc(gatePos)
 % returns a (numGates x 2) vector, where 1st col is dx, 2nd col is dy
 % gatePos is (numGates x 3), (x coord, y coord, size)
-% gateCon is (numNets x numGates), 1 in col if connected to gate
+% gateCon is (numNets x numGates+numPins), 1 in col if connected to
+% gate/pin
 global numGates numNets gateSize gateCon pins gridlen FU x;
 
 %give your own derivative here. it is a vector output in 

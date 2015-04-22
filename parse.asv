@@ -41,12 +41,10 @@ for i=1:numPins
     str_list = strsplit(tline);
     pins(i,1) = str2double(str_list{2});
     % add to gateCon
-    pinCon(str2double(str_list{2}),i) = 1;
+    pinCon(str_list{2}
     pins(i,2) = str2double(str_list{3});
     pins(i,3) = str2double(str_list{4});
 end
-% add to gateCon
-gateCon = [gateCon, pinCon];
 
 fclose(fid);
 

@@ -33,6 +33,14 @@ gateCon = gateCon1;
 pins = pins1;
 gridlen = 10;
 FU = FU1;
+
+global W_BP W_WL W_DP;
+% set weights
+W_BP = 1000;   % initial only
+W_DP = 1;   % always
+% start wirelen same weight as density
+W_WL = 1;%denpen(gatePos, gridlen, r, FU, gateSize) / wirelen(alpha, gatePos, gateCon);
+
 [F] = func(x_original);
 [F_prime] = dfunc(x_original);
 x = x_original;

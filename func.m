@@ -6,14 +6,10 @@ function [f_out] = func(gatePos)
 global numGates numNets gateSize gateCon pins gridlen FU x;
 
 % set parameters
-r = 0.1;            % investigate effect of r on boundpen
-alpha = gridlen*r;  % something?
+r = 2;            % investigate effect of r on boundpen
+alpha = gridlen*r/25;  % something?
 
-% set weights
-W_BP = 1000;   % initial only
-W_DP = 1;   % always
-% start wirelen same weight as density
-W_WL = 1;%denpen(gatePos, gridlen, r, FU, gateSize) / wirelen(alpha, gatePos, gateCon);
+global W_BP W_WL W_DP;
 
 WL_pen = wirelen(alpha, gatePos, gateCon);
 DP_pen = denpen(gatePos, gridlen, r, FU, gateSize);
