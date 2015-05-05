@@ -80,7 +80,9 @@ for j=1:1
 	%Doing the line search here. First bracket a minimum, then use Golden section to find it.
 	%Not using Newton-Raphson as in Shewchuk. So you don't need the second derivative.
 	  [ax,bx,cx,fa,fb,fc] = func_mnbrak(0,1,x,d);
+      disp('cleared mnbrak');
 	  [xt,golden] = func_golden(ax,bx,cx,x,d);
+      disp('cleared golden');
 	%To recover vector x, which is along d at xt away from initial x.
 	   x = x + xt.*d;
 	%The function value at x is golden as returned by func_golden.
@@ -120,6 +122,6 @@ end
 fileID = fopen(strcat(filename,'_out'),'w');
 noGates = numel(x)/2;
 for i=1:noGates
-    fprintf(fileID,'%i %.3f %.3f\n',i,x(i,1),x(i+noGates,1));
+    fprintf(fileID,'%i %.3f %.3f %i\n',i,x(i,1),x(i+noGates,1),gateSize(i));
 end
 fclose(fileID);
