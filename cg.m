@@ -32,7 +32,6 @@ numNets = numNets1;
 gateSize = gateSize1;
 gateCon = gateCon1;
 pins = pins1;
-gridlen = 10;
 FU = FU1;
 
 global W_BP W_WL W_DP;
@@ -42,61 +41,72 @@ W_DP = 1;   % always
 % start wirelen same weight as density
 W_WL = 1;%denpen(gatePos, gridlen, r, FU, gateSize) / wirelen(alpha, gatePos, gateCon);
 
-[F] = func(x_original);
-[F_prime] = dfunc(x_original);
+global r_magic, alpha;
+gridlen = 10;
+% initial (random) placement
 x = x_original;
-% [F] = func(x);
-% [F_prime] = dfunc(x);
+% TODO: check if loop works
+% TODO: check effect of r (2, 3, 4)
+% TODO: check formula for alpha (should be getting smaller for each run)
+% TODO: check W weights
 
-%From here in this m-file, I usually follow the notations in the 'pseudocode' of B4 
-%in Shewchuk's note.
+% implement outer loop, changing grid granularity (r_magic)
+for r_magic=2:2
+	alpha = gridlen*r_magic/25;  % something?
+	[F] = func(x);
+	[F_prime] = dfunc(x);
 
-r=-1.*F_prime;
-d=r;
-%g is for use in Polak-Ribiere
-g=r;
-delta_new=r'*r; 
-delta_0=delta_new;
-fp = F;
-%ftol is a convergence tolerance
-ftol=1.e-7;
-ITERMAX = 10000;
-%Don't worry too much about this
-EPS=1.e-10;
+	%From here in this m-file, I usually follow the notations in the 'pseudocode' of B4 
+	%in Shewchuk's note.
 
-for iter = 1 : ITERMAX 
+	r=-1.*F_prime;
+	d=r;
+	%g is for use in Polak-Ribiere
+	g=r;
+	delta_new=r'*r; 
+	delta_0=delta_new;
+	fp = F;
+	%ftol is a convergence tolerance
+	ftol=1.e-7;
+	ITERMAX = 10000;
+	%Don't worry too much about this
+	EPS=1.e-10;
 
-%Doing the line search here. First bracket a minimum, then use Golden section to find it.
-%Not using Newton-Raphson as in Shewchuk. So you don't need the second derivative.
-  [ax,bx,cx,fa,fb,fc] = func_mnbrak(0,1,x,d);
-  [xt,golden] = func_golden(ax,bx,cx,x,d);
-%To recover vector x, which is along d at xt away from initial x.
-   x = x + xt.*d;
-%The function value at x is golden as returned by func_golden.
-   F = golden;
-   [F_prime] = dfunc(x);
-   
-   r = -1.*F_prime;
-   delta_old = delta_new;
-%This is Fletcher-Reeves
-   delta_new = r'*r;
-%This is Polak-Ribiere
-%   delta_new = (F_prime+g)'*F_prime;
-   beta = delta_new/delta_old;
-   d = r + beta * d ; 
-   g = r;
-   if r'*d <= 0
-      d=r;
-   end
-%this convergence criterion is taken from NR.
-   if 2.*abs(F-fp) < ftol.*(abs(F)+abs(fp)+EPS)
-      iter
-      x
-      F
-      break;
-   end
-   fp = F;
-   iter;
+	for iter = 1 : ITERMAX 
+
+	%Doing the line search here. First bracket a minimum, then use Golden section to find it.
+	%Not using Newton-Raphson as in Shewchuk. So you don't need the second derivative.
+	  [ax,bx,cx,fa,fb,fc] = func_mnbrak(0,1,x,d);
+	  [xt,golden] = func_golden(ax,bx,cx,x,d);
+	%To recover vector x, which is along d at xt away from initial x.
+	   x = x + xt.*d;
+	%The function value at x is golden as returned by func_golden.
+	   F = golden;
+	   [F_prime] = dfunc(x);
+	   
+	   r = -1.*F_prime;
+	   delta_old = delta_new;
+	%This is Fletcher-Reeves
+	   delta_new = r'*r;
+	%This is Polak-Ribiere
+	%   delta_new = (F_prime+g)'*F_prime;
+	   beta = delta_new/delta_old;
+	   d = r + beta * d ; 
+	   g = r;
+	   if r'*d <= 0
+		  d=r;
+	   end
+	%this convergence criterion is taken from NR.
+	   if 2.*abs(F-fp) < ftol.*(abs(F)+abs(fp)+EPS)
+		  iter
+		  x
+		  F
+		  break;
+	   end
+	   fp = F;
+	   iter;
+
+	end
 
 end
 
