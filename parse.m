@@ -5,6 +5,9 @@ function [ FU, numGates, numNets, gatePos, gateSize, gateCon, pins ] = parse( fi
 % gateCon is (numNets x numGates), 1 in col if connected to gate
 % pins is (numPins x 3), (net connected to, x coord, y coord)
 
+% for testing
+rng(1);
+
 fid = fopen(filename);
 
 tline = fgets(fid);

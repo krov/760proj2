@@ -34,15 +34,18 @@ gateCon = gateCon1;
 pins = pins1;
 FU = FU1;
 
+% set initial magic params
+global r_magic alpha;
+r_magic = 2;
+gridlen = 10;
+
 global W_BP W_WL W_DP;
 % set weights
 W_BP = 1000;   % initial only
 W_DP = 1;   % always
 % start wirelen same weight as density
-W_WL = 1;%denpen(gatePos, gridlen, r, FU, gateSize) / wirelen(alpha, gatePos, gateCon);
+W_WL = 1;%denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 
-global r_magic, alpha;
-gridlen = 10;
 % initial (random) placement
 x = x_original;
 % TODO: check if loop works
@@ -51,7 +54,7 @@ x = x_original;
 % TODO: check W weights
 
 % implement outer loop, changing grid granularity (r_magic)
-for r_magic=2:2
+for j=1:1
 	alpha = gridlen*r_magic/25;  % something?
 	[F] = func(x);
 	[F_prime] = dfunc(x);
@@ -98,17 +101,21 @@ for r_magic=2:2
 	   end
 	%this convergence criterion is taken from NR.
 	   if 2.*abs(F-fp) < ftol.*(abs(F)+abs(fp)+EPS)
-		  iter
-		  x
-		  F
+		  %iter
+          x
+          F
 		  break;
 	   end
 	   fp = F;
 	   iter;
 
-	end
+    end
 
+    % update magic params for next run of outer loop
+    r_magic = r_magic + 1;
+    gridlen = gridlen / 2;
 end
+
 
 fileID = fopen(strcat(filename,'_out'),'w');
 noGates = numel(x)/2;
