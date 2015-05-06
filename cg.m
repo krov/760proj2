@@ -37,7 +37,7 @@ FU = FU1;
 % set initial magic params
 global r_magic alpha;
 r_magic = 2;
-gridlen = 10;
+gridlen = 100 / (numGates - 1);
 alpha = gridlen*r_magic;  % something?
 
 % initial (random) placement
@@ -58,7 +58,7 @@ W_WL = denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 % for debuggin
 x_results = [];
 % implement outer loop, changing grid granularity (r_magic)
-for j=1:2
+for j=1:5
 	alpha = gridlen*r_magic;  % something?
 	[F] = func(x);
 	[F_prime] = dfunc(x);
@@ -121,7 +121,7 @@ for j=1:2
     % update magic params for next run of outer loop
     disp('done with one iter');
     r_magic = r_magic + 1;
-    gridlen = gridlen / 2;
+    gridlen = gridlen / 1.4;
 end
 
 % legalize
