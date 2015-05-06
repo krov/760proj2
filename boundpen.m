@@ -9,19 +9,17 @@ gateCoords = gatePos;
 for i=1:numGates
     if (gateCoords(i,1) < 0)
         gateCoords(i,1) = (gateCoords(i,1)/alpha)^2;
-    else if (gateCoords(i,1) > 100)
+    elseif (gateCoords(i,1) > 100)
         gateCoords(i,1) = ((gateCoords(i,1)-100)/alpha)^2;
-        else
-            gateCoords(i,1) = 0;
-        end
+    else
+        gateCoords(i,1) = 0;
     end
     if (gateCoords(i+numGates,1) < 0)
         gateCoords(i+numGates,1) = (gateCoords(i+numGates,1)/alpha)^2;
-    else if (gateCoords(i+numGates,1) > 100)
+    elseif (gateCoords(i+numGates,1) > 100)
         gateCoords(i+numGates,1) = ((gateCoords(i+numGates,1)-100)/alpha)^2;
-        else
-            gateCoords(i+numGates,1) = 0;
-        end
+    else
+        gateCoords(i+numGates,1) = 0;
     end
 end
 

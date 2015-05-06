@@ -22,7 +22,7 @@ for i=1:gateNum
             xg = x * gridlen;
             yg = y * gridlen;
             % TODO: what is p(xg - xc)??
-            pGain = ((areaC/(r*r)*normpdf(xg,xc/gridlen,r/2)*normpdf(yg,yc/gridlen,r/2)) - cg)^2;
+            pGain = ((areaC/(r*r)*normpdf(xg,xc,r/2)*normpdf(yg,yc,r/2)) - cg)^2;
 			%pGain = ((areaC/(r*r)*p(xg - xc)*p(yg - yc)) - cg)^2;
             grid(x,y) = grid(x,y) + pGain;
         end

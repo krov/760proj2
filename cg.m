@@ -23,7 +23,7 @@
 %x=[-2 ; -3];
 % x = ones(100, 1);
 
-filename = 'toy1';
+filename = 'benchmarks/fract';
 % set global params
 global numGates numNets gateSize gateCon pins gridlen FU;
 [FU1, numGates1, numNets1, x_original, gateSize1, gateCon1, pins1] = parse(filename);
@@ -58,7 +58,7 @@ W_WL = denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 % for debuggin
 x_results = [];
 % implement outer loop, changing grid granularity (r_magic)
-for j=1:5
+for j=1:2
 	alpha = gridlen*r_magic;  % something?
 	[F] = func(x);
 	[F_prime] = dfunc(x);
@@ -121,7 +121,7 @@ for j=1:5
     % update magic params for next run of outer loop
     disp('done with one iter');
     r_magic = r_magic + 1;
-    gridlen = gridlen / 1.4;
+    gridlen = gridlen / 2;
 end
 
 % legalize
