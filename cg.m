@@ -38,6 +38,7 @@ FU = FU1;
 global r_magic alpha;
 r_magic = 2;
 gridlen = 10;
+alpha = gridlen*r_magic/25;  % something?
 
 % initial (random) placement
 x = x_original;
@@ -47,7 +48,7 @@ global W_BP W_WL W_DP;
 W_BP = 1000;   % initial only
 W_DP = 1;   % always
 % start wirelen same weight as density
-W_WL = 10*denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
+W_WL = denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 
 % TODO: check if loop works
 % TODO: check effect of r (2, 3, 4)
