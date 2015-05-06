@@ -44,7 +44,7 @@ global W_BP W_WL W_DP;
 W_BP = 1000;   % initial only
 W_DP = 1;   % always
 % start wirelen same weight as density
-W_WL = 1;%denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
+W_WL = denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 
 % initial (random) placement
 x = x_original;
@@ -53,8 +53,10 @@ x = x_original;
 % TODO: check formula for alpha (should be getting smaller for each run)
 % TODO: check W weights
 
+% for debuggin
+x_results = [];
 % implement outer loop, changing grid granularity (r_magic)
-for j=1:1
+for j=1:3
 	alpha = gridlen*r_magic/25;  % something?
 	[F] = func(x);
 	[F_prime] = dfunc(x);
@@ -104,8 +106,9 @@ for j=1:1
 	%this convergence criterion is taken from NR.
 	   if 2.*abs(F-fp) < ftol.*(abs(F)+abs(fp)+EPS)
 		  %iter
-          x
-          F
+%           x
+%           F
+          x_results = [x_results, x];
 		  break;
 	   end
 	   fp = F;
@@ -114,14 +117,15 @@ for j=1:1
     end
 
     % update magic params for next run of outer loop
+    disp('done with one iter');
     r_magic = r_magic + 1;
-    gridlen = gridlen / 2;
+    gridlen = gridlen / 5;
 end
 
 
-fileID = fopen(strcat(filename,'_out'),'w');
+fileID = fopen(strcat(filename,'_out.txt'),'w');
 noGates = numel(x)/2;
 for i=1:noGates
-    fprintf(fileID,'%i %.3f %.3f %i\n',i,x(i,1),x(i+noGates,1),gateSize(i));
+    fprintf(fileID,'%i %.3f %.3f\n',i,x(i,1),x(i+noGates,1));
 end
 fclose(fileID);

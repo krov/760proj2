@@ -3,8 +3,8 @@ function [ dp ] = denpen( gatePos, gridlen, r, FU, gateSize)
 % gatePos is (numGates x 3), (x coord, y coord, size)
 
 grid = zeros(ceil(100/gridlen)+1);
-A = (100*gridlen)^2;
-cg = A / (101^2);
+A = (100)^2;
+cg = 0.75 * A / (101^2);    % assumes 0.75 capacity
 
 gateNum = size(gatePos,1)/2;
 
