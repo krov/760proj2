@@ -23,7 +23,7 @@
 %x=[-2 ; -3];
 % x = ones(100, 1);
 
-filename = 'toy2';
+filename = 'toy1';
 % set global params
 global numGates numNets gateSize gateCon pins gridlen FU;
 [FU1, numGates1, numNets1, x_original, gateSize1, gateCon1, pins1] = parse(filename);
@@ -39,6 +39,9 @@ global r_magic alpha;
 r_magic = 2;
 gridlen = 10;
 
+% initial (random) placement
+x = x_original;
+
 global W_BP W_WL W_DP;
 % set weights
 W_BP = 1000;   % initial only
@@ -46,8 +49,6 @@ W_DP = 1;   % always
 % start wirelen same weight as density
 W_WL = denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 
-% initial (random) placement
-x = x_original;
 % TODO: check if loop works
 % TODO: check effect of r (2, 3, 4)
 % TODO: check formula for alpha (should be getting smaller for each run)
