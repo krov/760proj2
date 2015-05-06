@@ -56,7 +56,7 @@ x = x_original;
 % for debuggin
 x_results = [];
 % implement outer loop, changing grid granularity (r_magic)
-for j=1:3
+for j=1:2
 	alpha = gridlen*r_magic/25;  % something?
 	[F] = func(x);
 	[F_prime] = dfunc(x);
