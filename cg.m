@@ -47,7 +47,7 @@ global W_BP W_WL W_DP;
 W_BP = 1000;   % initial only
 W_DP = 1;   % always
 % start wirelen same weight as density
-W_WL = denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
+W_WL = 10*denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 
 % TODO: check if loop works
 % TODO: check effect of r (2, 3, 4)
