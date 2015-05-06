@@ -23,7 +23,7 @@
 %x=[-2 ; -3];
 % x = ones(100, 1);
 
-filename = 'benchmarks/fract';
+filename = 'benchmarks/industry1';
 % set global params
 global numGates numNets gateSize gateCon pins gridlen FU;
 [FU1, numGates1, numNets1, x_original, gateSize1, gateCon1, pins1] = parse(filename);
@@ -45,10 +45,10 @@ x = x_original;
 
 global W_BP W_WL W_DP;
 % set weights
-W_BP = 1000;   % initial only
+W_BP = 100;   % initial only
 W_DP = 1;   % always
 % start wirelen same weight as density
-W_WL = denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
+W_WL = 5*denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 
 % TODO: check if loop works
 % TODO: check effect of r (2, 3, 4)
@@ -56,7 +56,7 @@ W_WL = denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 % TODO: check W weights
 
 % for debuggin
-x_results = [];
+% x_results = [];
 % implement outer loop, changing grid granularity (r_magic)
 for j=1:2
 	alpha = gridlen*r_magic;  % something?
@@ -84,9 +84,7 @@ for j=1:2
 	%Doing the line search here. First bracket a minimum, then use Golden section to find it.
 	%Not using Newton-Raphson as in Shewchuk. So you don't need the second derivative.
 	  [ax,bx,cx,fa,fb,fc] = func_mnbrak(0,1,x,d);
-      disp('cleared mnbrak');
 	  [xt,golden] = func_golden(ax,bx,cx,x,d);
-      disp('cleared golden');
 	%To recover vector x, which is along d at xt away from initial x.
 	   x = x + xt.*d;
 	%The function value at x is golden as returned by func_golden.
@@ -110,18 +108,18 @@ for j=1:2
 		  %iter
 %           x
 %           F
-          x_results = [x_results, x];
+%           x_results = [x_results, x];
 		  break;
 	   end
 	   fp = F;
-	   iter;
+	   disp(iter);
 
     end
 
     % update magic params for next run of outer loop
     disp('done with one iter');
     r_magic = r_magic + 1;
-    gridlen = gridlen / 2;
+    gridlen = gridlen / 10;
 end
 
 % legalize
