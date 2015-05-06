@@ -38,7 +38,7 @@ FU = FU1;
 global r_magic alpha;
 r_magic = 2;
 gridlen = 10;
-alpha = gridlen*r_magic/25;  % something?
+alpha = gridlen*r_magic;  % something?
 
 % initial (random) placement
 x = x_original;
@@ -59,7 +59,7 @@ W_WL = denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 x_results = [];
 % implement outer loop, changing grid granularity (r_magic)
 for j=1:2
-	alpha = gridlen*r_magic/25;  % something?
+	alpha = gridlen*r_magic;  % something?
 	[F] = func(x);
 	[F_prime] = dfunc(x);
 
@@ -121,9 +121,20 @@ for j=1:2
     % update magic params for next run of outer loop
     disp('done with one iter');
     r_magic = r_magic + 1;
-    gridlen = gridlen / 5;
+    gridlen = gridlen / 2;
 end
 
+% legalize
+% MOSTLY OK TO DO THIS because if a pin is outside boundaries, it is
+% usually very close to 0 or 100 due to heavy boundary penalty
+for i=1:numel(x)
+    if x(i) < 0
+        x(i) = 0;
+    end
+    if x(i) > 100
+        x(i) = 100;
+    end
+end
 
 fileID = fopen(strcat(filename,'_out.txt'),'w');
 noGates = numel(x)/2;
