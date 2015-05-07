@@ -21,7 +21,5 @@ min1 = alpha * log(minSum);
 % smooth approx = maxX - minX + maxY - minY
 len = sum(sum(max1)) - sum(sum(min1));
 
-% CONSTRAINTS? fixed pads??
-
 end
 

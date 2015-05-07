@@ -12,7 +12,4 @@ global W_BP W_WL W_DP;
 WL_pen = wirelen(alpha, gatePos, gateCon);
 DP_pen = denpen(gatePos, gridlen, r_magic, FU, gateSize);
 BP_pen = boundpen(alpha, gatePos);
-% W_WL*WL_pen
-% W_DP*DP_pen
-% W_BP*BP_pen
 f_out = W_WL*WL_pen + W_DP*DP_pen + W_BP*BP_pen;

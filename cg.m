@@ -19,11 +19,7 @@
 %   seem to work well. If you notice any bug or have any comment, please email me
 %   king at ictp at it
 
-%put initial guess here (x is an n-dimensional vector).
-%x=[-2 ; -3];
-% x = ones(100, 1);
-
-filename = 'benchmarks/industry1';
+filename = 'benchmarks/toy1';
 % set global params
 global numGates numNets gateSize gateCon pins gridlen FU;
 [FU1, numGates1, numNets1, x_original, gateSize1, gateCon1, pins1] = parse(filename);
@@ -38,28 +34,20 @@ FU = FU1;
 global r_magic alpha;
 r_magic = 2;
 gridlen = 100 / (numGates - 1);
-alpha = gridlen*r_magic;  % something?
+alpha = gridlen*r_magic;
 
 % initial (random) placement
 x = x_original;
 
 global W_BP W_WL W_DP;
 % set weights
-W_BP = 100;   % initial only
+W_BP = 100;
 W_DP = 1;   % always
-% start wirelen same weight as density
 W_WL = 5*denpen(x, gridlen, r_magic, FU, gateSize) / wirelen(alpha, x, gateCon);
 
-% TODO: check if loop works
-% TODO: check effect of r (2, 3, 4)
-% TODO: check formula for alpha (should be getting smaller for each run)
-% TODO: check W weights
-
-% for debuggin
-% x_results = [];
 % implement outer loop, changing grid granularity (r_magic)
-for j=1:2
-	alpha = gridlen*r_magic;  % something?
+for j=1:1
+	alpha = gridlen*r_magic;
 	[F] = func(x);
 	[F_prime] = dfunc(x);
 
@@ -105,19 +93,13 @@ for j=1:2
 	   end
 	%this convergence criterion is taken from NR.
 	   if 2.*abs(F-fp) < ftol.*(abs(F)+abs(fp)+EPS)
-		  %iter
-%           x
-%           F
-%           x_results = [x_results, x];
 		  break;
 	   end
 	   fp = F;
-	   disp(iter);
 
     end
 
     % update magic params for next run of outer loop
-    disp('done with one iter');
     r_magic = r_magic + 1;
     gridlen = gridlen / 10;
 end

@@ -12,18 +12,16 @@ for i=1:gateNum
     xc = gatePos(i,1);
     yc = gatePos(i+gateNum,1);
     areaC = gateSize(i) * FU;
-    xMin = max(ceil((xc - (r * gridlen)) / gridlen), 0) + 1;    % +1 because of index from 1
+    xMin = max(ceil((xc - (r * gridlen)) / gridlen), 0) + 1;              % +1 because of index from 1
     xMax = min(floor((xc + (r * gridlen)) / gridlen), 100/gridlen) + 1;   % +1 because of index from 1
-    yMin = max(ceil((yc - (r * gridlen)) / gridlen), 0) + 1;    % +1 because of index from 1
+    yMin = max(ceil((yc - (r * gridlen)) / gridlen), 0) + 1;              % +1 because of index from 1
     yMax = min(floor((yc + (r * gridlen)) / gridlen), 100/gridlen) + 1;   % +1 because of index from 1
     % go through each grid point
     for x=xMin:xMax
         for y=yMin:yMax
             xg = x * gridlen;
             yg = y * gridlen;
-            % TODO: what is p(xg - xc)??
             pGain = ((areaC/(r*r)*normpdf(xg,xc,r/2)*normpdf(yg,yc,r/2)) - cg)^2;
-			%pGain = ((areaC/(r*r)*p(xg - xc)*p(yg - yc)) - cg)^2;
             grid(x,y) = grid(x,y) + pGain;
         end
     end
